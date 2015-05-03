@@ -1,0 +1,5 @@
+install:
+bower install
+grunt
+
+for publishing include only *.html, css, js, fonts
