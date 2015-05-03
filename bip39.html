@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <script src="js/secrets.min.js"></script>
+    <title></title>
+</head>
+<body>
+
+<h1>split</h1>
+phrase: <textarea id="txt1Secret" onkeyup="validatePhrase();"></textarea>
+<br />
+# shares: <input type="text" id="txt1NumShares" value="3" />
+<br />
+# shares required: <input type="text" id="txt1NumRequired" value="2" />
+<br />
+<input type="button" value="Generate" id="btn1Generate" onclick="generateShares();" />
+<h2>shares</h2>
+<div id="div1Shares">
+</div>
+
+<h1>recover</h1>
+shares: <textarea id="txt2Shares"></textarea>
+<br />
+<input type="button" value="Recover" id="btn2Recover" onclick="recoverShares();" />
+<br />
+secret: <textarea id="txt2Secret"></textarea>
+</body>
+</html>

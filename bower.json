@@ -1,0 +1,28 @@
+{
+  "name": "securephrase",
+  "version": "0.1.0",
+  "homepage": "https://github.com/thesoftwarejedi/securephrase",
+  "authors": [
+    "Dana Hanna <dana.hanna@gmail.com>"
+  ],
+  "description": "A tool to securely split a BIP39 recovery phrase into M of N peices",
+  "keywords": [
+    "bip39",
+    "bitcoin",
+    "seed"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bitcore-mnemonic": "~0.11.0",
+    "jquery": "1.11",
+    "bootstrap": "~3.3.4",
+    "secrets.js": "~0.1.18"
+  }
+}
