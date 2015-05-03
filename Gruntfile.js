@@ -7,7 +7,8 @@ module.exports = function(grunt) {
     grunt.initConfig({
         bower_concat: {
             all: {
-                dest: 'js/components.js'
+                dest: 'js/components.js',
+                cssDest: 'css/components.css'
             }
         },
         uglify: {
@@ -22,14 +23,8 @@ module.exports = function(grunt) {
             }
         },
         copy: {
-            all: {
+            fonts: {
                 files: [
-                    {
-                        cwd: 'bower_components/bootstrap/dist/css/',  // set working folder / root to copy
-                        src: '**/*',           // copy all files and subfolders
-                        dest: 'css/',    // destination folder
-                        expand: true           // required when using cwd
-                    },
                     {
                         cwd: 'bower_components/bootstrap/dist/fonts/',  // set working folder / root to copy
                         src: '**/*',           // copy all files and subfolders

@@ -3,22 +3,27 @@
  */
 
 function validatePhrase() {
+    var Mnemonic = require('bitcore-mnemonic');
     var isValid = Mnemonic.isValid($('#txt1Secret').val());
     $('.phrase-valid').toggle(isValid);
     $('.phrase-invalid').toggle(!isValid);
 }
 
 function generateShares() {
-    var seed = $('#txt1Secret').val();
+    var phrase = $('#txt1Secret').val();
     var numShares = parseInt($('#txt1NumShares').val());
     var numRequired = parseInt($('#txt1NumRequired').val());
 
-    var seedHex = secrets.str2hex(seed);
+    var Mnemonic = require('bitcore-mnemonic');
+    var m = new Mnemonic(phrase);
+    var key = m.toHDPrivateKey().xprivkey;
+
+    var seedHex = secrets.str2hex(key);
     var shares = secrets.share(seedHex, numShares, numRequired);
     var divShares = $('#div1Shares');
     for (var i = 0; i < shares.length; i++) {
         shares[i] = shares[i].substring(1); //knock the leading '8' off
-        divShares.innerHTML = divShares.innerHTML + '<span class="share-text">' + hexToBase64(shares[i]) + '</span><div class="share-qr-code" id="share' + i + '"></div>';
+        divShares.append('<span class="share-text">' + hexToBase64(shares[i]) + '</span><div class="share-qr-code" id="share' + i + '"></div>');
     }
     for (var i = 0; i < shares.length; i++) {
         new QRCode($('#share' + i), { text: hexToBase64(shares[i]), correctLevel: QRCode.CorrectLevel.L });
@@ -33,7 +38,7 @@ function recoverShares() {
     }
     var hexSecret = secrets.combine(sharesArray);
     var secret = secrets.hex2str(hexSecret);
-    $('#txt2Secret').val() = secret;
+    $('#txt2Secret').val(secret);
 }
 
 /**
