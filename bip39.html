@@ -2,13 +2,16 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
-    <script src="js/secrets.min.js"></script>
+    <script src="js/components.min.js"></script>
+    <script src="js/bip39.js"></script>
     <title></title>
 </head>
 <body>
 
 <h1>split</h1>
 phrase: <textarea id="txt1Secret" onkeyup="validatePhrase();"></textarea>
+<div class="phrase-valid">This is a valid recovery phrase</div>
+<div class="phrase-invalid">This is a valid recovery phrase</div>
 <br />
 # shares: <input type="text" id="txt1NumShares" value="3" />
 <br />
