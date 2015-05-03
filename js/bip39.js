@@ -3,8 +3,8 @@
  */
 
 function validatePhrase() {
-    var Mnemonic = require('bitcore-mnemonic');
-    var isValid = Mnemonic.isValid($('#txt1Secret').val());
+    var m = new Mnemonic();
+    var isValid = m.check($('#txt1Secret').val());
     $('.phrase-valid').toggle(isValid);
     $('.phrase-invalid').toggle(!isValid);
 }

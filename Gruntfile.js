@@ -7,17 +7,23 @@ module.exports = function(grunt) {
     grunt.initConfig({
         bower_concat: {
             components: {
-                dest: 'js/components.js',
-                cssDest: 'css/components.css',
+                dest: 'js/scripts-bower.js',
+                cssDest: 'css/styles-bower.css',
                 exclude: [
                     'bitcoinjs-lib'
                 ]
             }
         },
+        concat: {
+            components: {
+                src: 'js-ext/**/*.js',
+                dest: 'js/scripts-ext.js'
+            }
+        },
         browserify: {
             bitcoinjs: {
                 src: 'bower_components/bitcoinjs-lib/src/index.js',
-                dest: 'js/gen/bitcoinjs.js'
+                dest: 'js/bitcoinjs.js'
             }
         },
         uglify: {
@@ -27,7 +33,8 @@ module.exports = function(grunt) {
                     compress: true
                 },
                 files: {
-                    'js/gen/components.min.js': 'js/gen/components.js'
+                    'js/scripts-bower.min.js': 'js/scripts-bower.js',
+                    'js/scripts-ext.min.js': 'js/scripts-ext.js'
                 }
             }
         },
@@ -47,6 +54,6 @@ module.exports = function(grunt) {
 
     require('load-grunt-tasks')(grunt);
 
-    grunt.registerTask('default', ['browserify', 'bower_concat', 'copy', 'uglify']);
+    grunt.registerTask('default', ['browserify', 'concat', 'bower_concat', 'copy', 'uglify']);
 
 };
