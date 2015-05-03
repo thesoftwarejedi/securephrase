@@ -20,9 +20,9 @@
     "tests"
   ],
   "dependencies": {
-    "bitcore": "~0.12.3",
-    "bitcore-mnemonic": "~0.11.0",
     "jquery": "1.11",
-    "bootstrap": "~3.3.4"
+    "bootstrap": "~3.3.4",
+    "bitcoinjs-lib": "~1.5.6",
+    "secrets.js": "~0.1.18"
   }
 }
