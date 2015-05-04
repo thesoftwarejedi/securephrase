@@ -2,9 +2,11 @@
  * Created by dana on 5/2/15.
  */
 
+var bitcore = require('bitcore');
+var Mnemonic = require('bitcore-mnemonic');
+
 function validatePhrase() {
-    var m = new Mnemonic();
-    var isValid = m.check($('#txt1Secret').val());
+    var isValid = Mnemonic.isValid($('#txt1Secret').val());
     $('.phrase-valid').toggle(isValid);
     $('.phrase-invalid').toggle(!isValid);
 }
@@ -14,19 +16,16 @@ function generateShares() {
     var numShares = parseInt($('#txt1NumShares').val());
     var numRequired = parseInt($('#txt1NumRequired').val());
 
-    var Mnemonic = require('bitcore-mnemonic');
     var m = new Mnemonic(phrase);
-    var key = m.toHDPrivateKey().xprivkey;
+    var seedHex = secrets.str2hex(m.toHDPrivateKey().toString());
 
-    var seedHex = secrets.str2hex(key);
     var shares = secrets.share(seedHex, numShares, numRequired);
     var divShares = $('#div1Shares');
     for (var i = 0; i < shares.length; i++) {
-        shares[i] = shares[i].substring(1); //knock the leading '8' off
         divShares.append('<span class="share-text">' + hexToBase64(shares[i]) + '</span><div class="share-qr-code" id="share' + i + '"></div>');
     }
     for (var i = 0; i < shares.length; i++) {
-        new QRCode($('#share' + i), { text: hexToBase64(shares[i]), correctLevel: QRCode.CorrectLevel.L });
+        QRCode($('#share' + i), { text: hexToBase64(shares[i]), correctLevel: QRCode.CorrectLevel.L });
     }
 }
 
@@ -34,11 +33,12 @@ function recoverShares() {
     var shares = $('#txt2Shares').val();
     var sharesArray = shares.split('\n');
     for (var i = 0; i < sharesArray.length; i++) {
-        sharesArray[i] = '8' + base64ToHex(sharesArray[i]);
+        sharesArray[i] = base64ToHex(sharesArray[i]);
     }
     var hexSecret = secrets.combine(sharesArray);
-    var secret = secrets.hex2str(hexSecret);
-    $('#txt2Secret').val(secret);
+
+    var key = bitcore.HDPrivateKey.fromSeed(hexSecret);
+    $('#txt2Secret').val(key.xprivkey);
 }
 
 /**

@@ -3,31 +3,30 @@
  */
 
 function generateShares() {
-    var seed = document.getElementById('txt1Secret').value;
-    var numShares = parseInt(document.getElementById('txt1NumShares').value);
-    var numRequired = parseInt(document.getElementById('txt1NumRequired').value);
+    var seed = $('#txt1Secret').val();
+    var numShares = parseInt($('#txt1NumShares').val());
+    var numRequired = parseInt($('#txt1NumRequired').val());
 
     var seedHex = secrets.str2hex(seed);
     var shares = secrets.share(seedHex, numShares, numRequired);
-    var divShares = document.getElementById('div1Shares');
+    var divShares = $('#div1Shares');
     for (var i = 0; i < shares.length; i++) {
-        shares[i] = shares[i].substring(1); //knock the leading '8' off
-        divShares.innerHTML = divShares.innerHTML + '<span class="share-text">' + hexToBase64(shares[i]) + '</span><div class="share-qr-code" id="share' + i + '"></div>';
+        divShares.append('<span class="share-text">' + hexToBase64(shares[i]) + '</span><div class="share-qr-code" id="share' + i + '"></div>');
     }
     for (var i = 0; i < shares.length; i++) {
-        new QRCode(document.getElementById('share' + i), { text: hexToBase64(shares[i]), correctLevel: QRCode.CorrectLevel.L });
+        new QRCode($('#share' + i), { text: hexToBase64(shares[i]), correctLevel: QRCode.CorrectLevel.L });
     }
 }
 
 function recoverShares() {
-    var shares = document.getElementById('txt2Shares').value;
+    var shares = $('#txt2Shares').val();
     var sharesArray = shares.split('\n');
     for (var i = 0; i < sharesArray.length; i++) {
-        sharesArray[i] = '8' + base64ToHex(sharesArray[i]);
+        sharesArray[i] = base64ToHex(sharesArray[i]);
     }
     var hexSecret = secrets.combine(sharesArray);
     var secret = secrets.hex2str(hexSecret);
-    document.getElementById('txt2Secret').value = secret;
+    $('#txt2Secret').val(secret);
 }
 
 function hexToBase64(str) {

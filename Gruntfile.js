@@ -8,10 +8,7 @@ module.exports = function(grunt) {
         bower_concat: {
             components: {
                 dest: 'js/scripts-bower.js',
-                cssDest: 'css/styles-bower.css',
-                exclude: [
-                    'bitcoinjs-lib'
-                ]
+                cssDest: 'css/styles-bower.css'
             }
         },
         concat: {
@@ -22,7 +19,7 @@ module.exports = function(grunt) {
         },
         browserify: {
             bitcoinjs: {
-                src: 'bower_components/bitcoinjs-lib/src/index.js',
+                src: 'node_modules/bitcoinjs-lib/src/index.js',
                 dest: 'js/bitcoinjs.js'
             }
         },
