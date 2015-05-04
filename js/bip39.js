@@ -5,6 +5,14 @@
 var bitcore = require('bitcore');
 var Mnemonic = require('bitcore-mnemonic');
 
+//have to explicitly set because secrets.js uses require === 'function' to detect node
+//and bitcore defines require so they can be lazy and use it on the browser
+var tempRequire = require;
+require = null;
+secrets.setRNG(); //set while require == null
+require = tempRequire;
+
+
 function validatePhrase() {
     var isValid = Mnemonic.isValid($('#txt1Secret').val());
     $('.phrase-valid').toggle(isValid);
@@ -17,15 +25,16 @@ function generateShares() {
     var numRequired = parseInt($('#txt1NumRequired').val());
 
     var m = new Mnemonic(phrase);
-    var seedHex = secrets.str2hex(m.toHDPrivateKey().toString());
+    var keyHex = m.toHDPrivateKey().toObject().privateKey;
 
-    var shares = secrets.share(seedHex, numShares, numRequired);
+    var shares = secrets.share(keyHex, numShares, numRequired);
     var divShares = $('#div1Shares');
     for (var i = 0; i < shares.length; i++) {
+        shares[i] = shares[i].substring(1);
         divShares.append('<span class="share-text">' + hexToBase64(shares[i]) + '</span><div class="share-qr-code" id="share' + i + '"></div>');
     }
     for (var i = 0; i < shares.length; i++) {
-        QRCode($('#share' + i), { text: hexToBase64(shares[i]), correctLevel: QRCode.CorrectLevel.L });
+        new QRCode(document.getElementById('share' + i), { text: hexToBase64(shares[i]), correctLevel: QRCode.CorrectLevel.H });
     }
 }
 
@@ -33,7 +42,7 @@ function recoverShares() {
     var shares = $('#txt2Shares').val();
     var sharesArray = shares.split('\n');
     for (var i = 0; i < sharesArray.length; i++) {
-        sharesArray[i] = base64ToHex(sharesArray[i]);
+        sharesArray[i] = '8' + base64ToHex(sharesArray[i]);
     }
     var hexSecret = secrets.combine(sharesArray);
 
@@ -42,9 +51,7 @@ function recoverShares() {
 }
 
 /**
- *
  * helper functions, no outside entry
- *
  */
 
 

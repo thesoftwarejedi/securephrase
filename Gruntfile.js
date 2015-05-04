@@ -17,12 +17,6 @@ module.exports = function(grunt) {
                 dest: 'js/scripts-ext.js'
             }
         },
-        browserify: {
-            bitcoinjs: {
-                src: 'node_modules/bitcoinjs-lib/src/index.js',
-                dest: 'js/bitcoinjs.js'
-            }
-        },
         uglify: {
             components: {
                 options: {
@@ -51,6 +45,6 @@ module.exports = function(grunt) {
 
     require('load-grunt-tasks')(grunt);
 
-    grunt.registerTask('default', ['browserify', 'concat', 'bower_concat', 'copy', 'uglify']);
+    grunt.registerTask('default', ['concat', 'bower_concat', 'copy', 'uglify']);
 
 };

@@ -5,7 +5,7 @@
   "authors": [
     "Dana Hanna <dana.hanna@gmail.com>"
   ],
-  "description": "A tool to securely split a BIP39 recovery phrase into M of N peices",
+  "description": "A tool to securely split a BIP39 recovery phrase into M of N pieces",
   "keywords": [
     "bip39",
     "bitcoin",
@@ -22,9 +22,7 @@
   "dependencies": {
     "jquery": "1.11",
     "bootstrap": "~3.3.4",
-    "secrets.js": "~0.1.18"
-  },
-  "devDependencies": {
+    "secrets.js": "~0.1.18",
     "bitcore": "~0.12.3",
     "bitcore-mnemonic": "~0.11.0"
   }

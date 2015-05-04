@@ -2,6 +2,13 @@
  * Created by dana on 5/2/15.
  */
 
+//have to explicitly set because secrets.js uses require === 'function' to detect node
+//and bitcore defines require so they can be lazy and use it on the browser
+var tempRequire = require;
+require = null;
+secrets.setRNG(); //set while require == null
+require = tempRequire;
+
 function generateShares() {
     var seed = $('#txt1Secret').val();
     var numShares = parseInt($('#txt1NumShares').val());
@@ -11,6 +18,7 @@ function generateShares() {
     var shares = secrets.share(seedHex, numShares, numRequired);
     var divShares = $('#div1Shares');
     for (var i = 0; i < shares.length; i++) {
+        shares[i] = shares[i].substring(1);
         divShares.append('<span class="share-text">' + hexToBase64(shares[i]) + '</span><div class="share-qr-code" id="share' + i + '"></div>');
     }
     for (var i = 0; i < shares.length; i++) {
@@ -22,7 +30,7 @@ function recoverShares() {
     var shares = $('#txt2Shares').val();
     var sharesArray = shares.split('\n');
     for (var i = 0; i < sharesArray.length; i++) {
-        sharesArray[i] = base64ToHex(sharesArray[i]);
+        sharesArray[i] = '8' + base64ToHex(sharesArray[i]);
     }
     var hexSecret = secrets.combine(sharesArray);
     var secret = secrets.hex2str(hexSecret);
