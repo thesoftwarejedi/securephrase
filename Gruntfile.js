@@ -8,7 +8,10 @@ module.exports = function(grunt) {
         bower_concat: {
             components: {
                 dest: 'js/scripts-bower.js',
-                cssDest: 'css/styles-bower.css'
+                cssDest: 'css/styles-bower.css',
+                mainFiles: {
+                    'cryptojslib': ['components/core.js', 'components/enc-base64.js']
+                }
             }
         },
         concat: {

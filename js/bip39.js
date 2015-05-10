@@ -26,6 +26,7 @@ function generateShares() {
 
     var m = new Mnemonic(phrase);
     var keyHex = m.toHDPrivateKey().toObject().privateKey;
+    $('#txt1SecretHex').val(keyHex);
 
     var shares = secrets.share(keyHex, numShares, numRequired);
     var divShares = $('#div1Shares');
