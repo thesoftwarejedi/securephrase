@@ -10,7 +10,7 @@ module.exports = function(grunt) {
                 dest: 'js/scripts-bower.js',
                 cssDest: 'css/styles-bower.css',
                 mainFiles: {
-                    'cryptojslib': ['components/core.js', 'components/aes.js', 'components/enc-base64.js']
+                    'cryptojslib': ['components/core.js', 'components/cipher-core.js', 'components/aes.js', 'components/enc-base64.js']
                 }
             }
         },

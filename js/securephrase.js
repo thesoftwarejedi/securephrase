@@ -9,6 +9,10 @@ require = null;
 secrets.setRNG(); //set while require == null
 require = tempRequire;
 
+var theSecrets = secrets;
+var r = new Random(Random.engines.browserCrypto());
+var base58Chars = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz";
+
 function generateShares() {
     var secret = $('#txt1Secret').val();
     var numShares = parseInt($('#txt1NumShares').val());
@@ -17,13 +21,26 @@ function generateShares() {
 
     var shares = secrets.share(secretHex, numShares, numRequired);
     var divShares = $('#div1Shares');
-    var rnd = 
     for (var i = 0; i < shares.length; i++) {
         shares[i] = shares[i].substring(1);
-        divShares.append('<span class="share-text">' + hex2b64(shares[i]) + '</span><div class="share-qr-code" id="share' + i + '" />');
+
+        //put in base64 with safeprint encryption or not
+        var safePrintKey = '';
+        if ($('#chkbxSafePrint').prop('checked')) {
+            safePrintKey = r.string(6, base58Chars); //base58 chars are good for writing keys down
+            //encrypt the share with the key
+            var words = CryptoJS.enc.Hex.parse(shares[i]);
+            shares[i] = CryptoJS.AES.encrypt(words, safePrintKey); //returns in base64, which we want
+        } else {
+            shares[i] = hex2b64(shares[i]); //put in base64 for display and qr
+        }
+
+        //we just build the qr code placeholder here, the next loop will actually generate the qr code
+        divShares.append('<span class="share-text">' + shares[i] + '</span><div class="share-qr-code" id="share' + i + '" /><div class="share-safe-print">' + safePrintKey + '</div>');
     }
+    //generate the qr codes for the shares
     for (var i = 0; i < shares.length; i++) {
-        new QRCode(document.getElementById('share' + i), { text: hex2b64(shares[i]), correctLevel: QRCode.CorrectLevel.M });
+        new QRCode(document.getElementById('share' + i), { text: shares[i], correctLevel: QRCode.CorrectLevel.M });
     }
 }
 
@@ -31,7 +48,17 @@ function recoverShares() {
     var shares = $('#txt2Shares').val();
     var sharesArray = shares.split('\n');
     for (var i = 0; i < sharesArray.length; i++) {
-        sharesArray[i] = '8' + b642hex(sharesArray[i]);
+        var safePrintCheck = sharesArray[i].split(';');
+        if (safePrintCheck.length > 1) {
+            //there was a safeprint key so decrypt the share
+            var words  = CryptoJS.enc.Base64.parse(safePrintCheck[0]);
+            words = CryptoJS.AES.decrypt(words, safePrintCheck[1]);
+            sharesArray[i] = words.toString(CryptoJS.enc.Hex);
+        } else {
+            sharesArray[i] = b642hex(sharesArray[i]);
+        }
+        //pop the stupid 8 back on
+        sharesArray[i] = '8' + sharesArray[i];
     }
     var hexSecret = secrets.combine(sharesArray);
     var secret = hex2asc(hexSecret);
