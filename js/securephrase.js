@@ -9,9 +9,8 @@ require = null;
 secrets.setRNG(); //set while require == null
 require = tempRequire;
 
-var theSecrets = secrets;
-var r = new Random(Random.engines.browserCrypto());
-var base58Chars = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz";
+var r = new Random(Random.engines.browserCrypto);
+var safePrintChars = "123456789ABCDEFGHJKLMNPQRSTUVWXYZ"; //base 32, no 1 l 0 O
 
 function generateShares() {
     var secret = $('#txt1Secret').val();
@@ -27,10 +26,11 @@ function generateShares() {
         //put in base64 with safeprint encryption or not
         var safePrintKey = '';
         if ($('#chkbxSafePrint').prop('checked')) {
-            safePrintKey = r.string(6, base58Chars); //base58 chars are good for writing keys down
+            safePrintKey = r.string(6, safePrintChars); //base58 chars are good for writing keys down
             //encrypt the share with the key
             var words = CryptoJS.enc.Hex.parse(shares[i]);
-            shares[i] = CryptoJS.AES.encrypt(words, safePrintKey); //returns in base64, which we want
+            var encryptedWords = CryptoJS.AES.encrypt(words, safePrintKey);
+            shares[i] = encryptedWords.toString();
         } else {
             shares[i] = hex2b64(shares[i]); //put in base64 for display and qr
         }
@@ -51,9 +51,7 @@ function recoverShares() {
         var safePrintCheck = sharesArray[i].split(';');
         if (safePrintCheck.length > 1) {
             //there was a safeprint key so decrypt the share
-            var words  = CryptoJS.enc.Base64.parse(safePrintCheck[0]);
-            words = CryptoJS.AES.decrypt(words, safePrintCheck[1]);
-            sharesArray[i] = words.toString(CryptoJS.enc.Hex);
+            sharesArray[i] = CryptoJS.AES.decrypt(safePrintCheck[0], safePrintCheck[1]);
         } else {
             sharesArray[i] = b642hex(sharesArray[i]);
         }
