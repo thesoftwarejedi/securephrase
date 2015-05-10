@@ -13,12 +13,11 @@ function generateShares() {
     var secret = $('#txt1Secret').val();
     var numShares = parseInt($('#txt1NumShares').val());
     var numRequired = parseInt($('#txt1NumRequired').val());
-
     var secretHex = asc2hex(secret);
-    $('#txt1SecretHex').val(secretHex);
 
     var shares = secrets.share(secretHex, numShares, numRequired);
     var divShares = $('#div1Shares');
+    var rnd = 
     for (var i = 0; i < shares.length; i++) {
         shares[i] = shares[i].substring(1);
         divShares.append('<span class="share-text">' + hex2b64(shares[i]) + '</span><div class="share-qr-code" id="share' + i + '" />');
