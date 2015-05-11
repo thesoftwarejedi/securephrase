@@ -20,6 +20,7 @@ function generateShares() {
 
     var shares = secrets.share(secretHex, numShares, numRequired);
     var divShares = $('#div1Shares');
+    divShares.html('');
     for (var i = 0; i < shares.length; i++) {
         shares[i] = shares[i].substring(1);
 
@@ -36,11 +37,11 @@ function generateShares() {
         }
 
         //we just build the qr code placeholder here, the next loop will actually generate the qr code
-        divShares.append('<span class="share-text">' + shares[i] + '</span><div class="share-qr-code" id="share' + i + '" /><div class="share-safe-print">' + safePrintKey + '</div>');
+        divShares.append($('#tmplShare').render({text:shares[i], index:i, safePrintKey:safePrintKey }));
     }
     //generate the qr codes for the shares
     for (var i = 0; i < shares.length; i++) {
-        new QRCode(document.getElementById('share' + i), { text: shares[i], correctLevel: QRCode.CorrectLevel.M });
+        new QRCode(document.getElementById('shareQR' + i), { text: shares[i], correctLevel: QRCode.CorrectLevel.M });
     }
 }
 

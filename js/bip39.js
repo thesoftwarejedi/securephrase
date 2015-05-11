@@ -31,6 +31,7 @@ function generateShares() {
 
     var shares = secrets.share(keyHex, numShares, numRequired);
     var divShares = $('#div1Shares');
+    divShares.html('');
     for (var i = 0; i < shares.length; i++) {
         shares[i] = shares[i].substring(1);
 
@@ -45,11 +46,10 @@ function generateShares() {
         } else {
             shares[i] = CryptoJS.enc.Base64.stringify(CryptoJS.enc.Hex.parse(shares[i])); //put in base64 for display and qr
         }
-
-        divShares.append('<span class="share-text">' + shares[i] + '</span><div class="share-qr-code" id="share' + i + '"></div><div class="share-safe-print">' + safePrintKey + '</div>');
+        divShares.append($('#tmplShare').render({text:shares[i], index:i, safePrintKey:safePrintKey }));
     }
     for (var i = 0; i < shares.length; i++) {
-        new QRCode(document.getElementById('share' + i), { text: shares[i], correctLevel: QRCode.CorrectLevel.H });
+        new QRCode(document.getElementById('shareQR' + i), { text: shares[i], correctLevel: QRCode.CorrectLevel.H });
     }
 }
 

@@ -20,7 +20,18 @@ safe print <input type="checkbox" id="chkbxSafePrint" />
 <br />
 <input type="button" value="Generate" id="btn1Generate" onclick="generateShares();" />
 <h2>shares</h2>
-<div id="div1Shares"></div>
+
+<ul id="div1Shares"></ul>
+
+<script id="tmplShare" type="text/x-jsrender">
+<li>
+    <span class="share-text">{{:text}}</span>
+    <div class="share-qr-code" id="shareQR{{:index}}" />
+    {{if safePrintKey}}
+        <strong>Safe Print Key: </strong><span class="share-safe-print">{{:safePrintKey}}</span>
+    {{/if}}
+</li>
+</script>
 
 <h1>recover</h1>
 shares: <textarea id="txt2Shares"></textarea>
