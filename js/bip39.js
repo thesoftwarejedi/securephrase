@@ -43,7 +43,7 @@ function generateShares() {
             var encryptedWords = CryptoJS.AES.encrypt(words, safePrintKey);
             shares[i] = encryptedWords.toString();
         } else {
-            shares[i] = hex2b64(shares[i]); //put in base64 for display and qr
+            shares[i] = CryptoJS.enc.Base64.stringify(CryptoJS.enc.Hex.parse(shares[i])); //put in base64 for display and qr
         }
 
         divShares.append('<span class="share-text">' + shares[i] + '</span><div class="share-qr-code" id="share' + i + '"></div><div class="share-safe-print">' + safePrintKey + '</div>');
@@ -62,7 +62,7 @@ function recoverShares() {
             //there was a safeprint key so decrypt the share
             sharesArray[i] = CryptoJS.AES.decrypt(safePrintCheck[0], safePrintCheck[1]);
         } else {
-            sharesArray[i] = b642hex(sharesArray[i]);
+            sharesArray[i] = CryptoJS.enc.Hex.stringify(CryptoJS.enc.Base64.parse(sharesArray[i]));
         }
         //pop the stupid 8 back on
         sharesArray[i] = '8' + sharesArray[i];

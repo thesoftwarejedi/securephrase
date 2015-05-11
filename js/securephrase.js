@@ -16,7 +16,7 @@ function generateShares() {
     var secret = $('#txt1Secret').val();
     var numShares = parseInt($('#txt1NumShares').val());
     var numRequired = parseInt($('#txt1NumRequired').val());
-    var secretHex = asc2hex(secret);
+    var secretHex = CryptoJS.enc.Hex.stringify(CryptoJS.enc.Utf8.parse(secret));
 
     var shares = secrets.share(secretHex, numShares, numRequired);
     var divShares = $('#div1Shares');
@@ -32,7 +32,7 @@ function generateShares() {
             var encryptedWords = CryptoJS.AES.encrypt(words, safePrintKey);
             shares[i] = encryptedWords.toString();
         } else {
-            shares[i] = hex2b64(shares[i]); //put in base64 for display and qr
+            shares[i] = CryptoJS.enc.Base64.stringify(CryptoJS.enc.Hex.parse(shares[i])); //put in base64 for display and qr
         }
 
         //we just build the qr code placeholder here, the next loop will actually generate the qr code
@@ -53,12 +53,12 @@ function recoverShares() {
             //there was a safeprint key so decrypt the share
             sharesArray[i] = CryptoJS.AES.decrypt(safePrintCheck[0], safePrintCheck[1]);
         } else {
-            sharesArray[i] = b642hex(sharesArray[i]);
+            sharesArray[i] = CryptoJS.enc.Hex.stringify(CryptoJS.enc.Base64.parse(sharesArray[i]));
         }
         //pop the stupid 8 back on
         sharesArray[i] = '8' + sharesArray[i];
     }
     var hexSecret = secrets.combine(sharesArray);
-    var secret = hex2asc(hexSecret);
+    var secret = CryptoJS.enc.Utf8.stringify(CryptoJS.enc.Hex.parse(hexSecret));
     $('#txt2Secret').val(secret);
 }
