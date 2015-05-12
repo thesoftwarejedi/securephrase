@@ -1,5 +1,8 @@
 /**
  * Created by dana on 5/2/15.
+ *
+ * DO NOT MAINTAIN THIS, I DON'T THINK I'M GOING TO USE IT.  IT ONLY BACKS UP THE XPRV, NOT THE PHRASE
+ *
  */
 
 var bitcore = require('bitcore');
