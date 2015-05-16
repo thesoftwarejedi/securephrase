@@ -47,7 +47,7 @@ function generateShares() {
     }
     //generate the qr codes for the shares
     for (var i = 0; i < shares.length; i++) {
-        new QRCode(document.getElementById('shareQR' + (i+1)), { text: shares[i], correctLevel: QRCode.CorrectLevel.M });
+        new QRCode(document.getElementById('shareQR' + (i+1)), { text: shares[i], correctLevel: QRCode.CorrectLevel.M, width: 512, height: 512 });
     }
 }
 
