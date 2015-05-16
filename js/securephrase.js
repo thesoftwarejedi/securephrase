@@ -21,13 +21,19 @@ function generateShares() {
     var shares = secrets.share(secretHex, numShares, numRequired);
     var divShares = $('#div1Shares');
     divShares.html('');
+
+    //put in base64 with safeprint encryption or not
+    var safePrintKey = '';
+    if ($('#chkbxSafePrint').prop('checked')) {
+        safePrintKey = r.string(10, safePrintChars); //base32 chars are good for writing keys down
+        $('#safePrintKey').text(safePrintKey);
+    }
+
     for (var i = 0; i < shares.length; i++) {
         shares[i] = shares[i].substring(1);
 
         //put in base64 with safeprint encryption or not
-        var safePrintKey = '';
-        if ($('#chkbxSafePrint').prop('checked')) {
-            safePrintKey = r.string(6, safePrintChars); //base58 chars are good for writing keys down
+        if (safePrintKey != '') {
             //encrypt the share with the key
             var words = CryptoJS.enc.Hex.parse(shares[i]);
             var encryptedWords = CryptoJS.AES.encrypt(words, safePrintKey);
@@ -37,11 +43,11 @@ function generateShares() {
         }
 
         //we just build the qr code placeholder here, the next loop will actually generate the qr code
-        divShares.append($('#tmplShare').render({text:shares[i], index:i, safePrintKey:safePrintKey }));
+        divShares.append($('#tmplShare').render({text:shares[i], index:i+1}));
     }
     //generate the qr codes for the shares
     for (var i = 0; i < shares.length; i++) {
-        new QRCode(document.getElementById('shareQR' + i), { text: shares[i], correctLevel: QRCode.CorrectLevel.M });
+        new QRCode(document.getElementById('shareQR' + (i+1)), { text: shares[i], correctLevel: QRCode.CorrectLevel.M });
     }
 }
 
