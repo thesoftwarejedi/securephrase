@@ -54,11 +54,12 @@ function generateShares() {
 function recoverShares() {
     var shares = $('#txt2Shares').val();
     var sharesArray = shares.split('\n');
+    var safePrintKey = $('#txt2SafePrint').val();
+
     for (var i = 0; i < sharesArray.length; i++) {
-        var safePrintCheck = sharesArray[i].split(';');
-        if (safePrintCheck.length > 1) {
+        if (safePrintKey != '') {
             //there was a safeprint key so decrypt the share
-            sharesArray[i] = CryptoJS.AES.decrypt(safePrintCheck[0], safePrintCheck[1]);
+            sharesArray[i] = CryptoJS.AES.decrypt(sharesArray[i], safePrintKey);
         } else {
             sharesArray[i] = CryptoJS.enc.Hex.stringify(CryptoJS.enc.Base64.parse(sharesArray[i]));
         }
