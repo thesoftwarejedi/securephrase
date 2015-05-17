@@ -105,16 +105,15 @@
                             <h1>recover</h1>
                             <div class="row">
                                 <div class="form-group col-md-12">
-                                    <label>shares:</label>
+                                    <label>shares: <span id="scanQrButton" onclick="scanQr();"/></label>
+                                    <div id="qrScannerWindow" style="width:300px;height:300px;display:none"></div>
                                     <textarea id="txt2Shares"></textarea>
-                                    <input type="button" id="scanQR" value="Scan QR" onclick="scanQr();"/>
-                                    <div id="qrScannerWindow" style="width:300px;height:300px;display:none" />
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="form-group col-md-12">
                                     <label>safe print key:</label>
-                                    <input id="txt2SafePrint"></input>
+                                    <input id="txt2SafePrint"/>
                                 </div>
                             </div>
                             <div class="row">
