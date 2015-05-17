@@ -1,5 +1,10 @@
 /**
  * Created by dana on 5/2/15.
+ *
+ * Compatibility version 1
+ * 
+ * Backward compatibility breaking changes 
+ * should increment this version number
  */
 
 //have to explicitly set because secrets.js uses require === 'function' to detect node
@@ -10,7 +15,7 @@ secrets.setRNG(); //set while require == null
 require = tempRequire;
 
 var r = new Random(Random.engines.browserCrypto);
-var safePrintChars = "123456789ABCDEFGHJKLMNPQRSTUVWXYZ"; //base 32, no 1 l 0 O
+var safePrintChars = "23456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz"; //base 57, no 1 I l 0 O
 
 function generateShares() {
     var secret = $('#txt1Secret').val();
@@ -27,7 +32,7 @@ function generateShares() {
     var isSafeKey = $('#chkbxSafePrint').prop('checked');
     $('#safe-key-wrap').toggle(isSafeKey);
     if (isSafeKey) {
-        safePrintKey = r.string(10, safePrintChars); //base32 chars are good for writing keys down
+        safePrintKey = r.string(15, safePrintChars); //chars which are good for writing keys down
         $('#safePrintKey').text(safePrintKey);
     }
 
