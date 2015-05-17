@@ -1,10 +1,7 @@
 /* I have no clue how to do this properly, this doesn't work */
 
-.home-wrap {
+.print-hide {
     display: none;
-}
-.printable {
-    display: inline;
 }
 .shares-list > li {
     page-break-after: always;
