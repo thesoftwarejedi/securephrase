@@ -35,7 +35,7 @@
                                 <label for="txt1NumShares">Number of shares:</label>
                                 <select id="txt1NumShares">
                                     <option>2</option>
-                                    <option>3</option>
+                                    <option selected>3</option>
                                     <option>4</option>
                                     <option>5</option>
                                     <option>6</option>
@@ -54,7 +54,7 @@
                                 <div class="form-group">
                                 <label for="txt1NumRequired">Number of shares required:</label>
                                 <select id="txt1NumRequired">
-                                    <option>2</option>
+                                    <option selected>2</option>
                                     <option>3</option>
                                     <option>4</option>
                                     <option>5</option>
@@ -107,6 +107,8 @@
                                 <div class="form-group col-md-12">
                                     <label>shares:</label>
                                     <textarea id="txt2Shares"></textarea>
+                                    <input type="button" id="scanQR" value="Scan QR" onclick="scanQr();"/>
+                                    <div id="qrScannerWindow" style="width:300px;height:300px;display:none" />
                                 </div>
                             </div>
                             <div class="row">

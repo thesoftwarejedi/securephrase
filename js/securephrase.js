@@ -54,22 +54,51 @@ function generateShares() {
 }
 
 function recoverShares() {
-    var shares = $('#txt2Shares').val();
-    var sharesArray = shares.split('\n');
-    var safePrintKey = $('#txt2SafePrint').val();
+    try {
+        var shares = $('#txt2Shares').val();
+        var sharesArray = shares.split('\n');
+        var safePrintKey = $('#txt2SafePrint').val();
 
-    for (var i = 0; i < sharesArray.length; i++) {
-        if (safePrintKey != '') {
-            //there was a safeprint key so decrypt the share
-            sharesArray[i] = CryptoJS.AES.decrypt(sharesArray[i], safePrintKey);
-        } else {
-            $('.safe-key-wrap').toggle(false);
-            sharesArray[i] = CryptoJS.enc.Hex.stringify(CryptoJS.enc.Base64.parse(sharesArray[i]));
+        var sharesArrayHex = [];
+        for (var i = 0; i < sharesArray.length; i++) {
+            if (sharesArray[i].trim().length == 0) continue;
+            if (safePrintKey != '') {
+                //there was a safeprint key so decrypt the share
+                sharesArray[i] = CryptoJS.AES.decrypt(sharesArray[i], safePrintKey);
+            } else {
+                $('.safe-key-wrap').toggle(false);
+                sharesArray[i] = CryptoJS.enc.Hex.stringify(CryptoJS.enc.Base64.parse(sharesArray[i]));
+            }
+            //pop the stupid 8 back on
+            sharesArray[i] = '8' + sharesArray[i];
+            sharesArrayHex.push(sharesArray[i]);
         }
-        //pop the stupid 8 back on
-        sharesArray[i] = '8' + sharesArray[i];
+        var hexSecret = secrets.combine(sharesArrayHex);
+        var secret = CryptoJS.enc.Utf8.stringify(CryptoJS.enc.Hex.parse(hexSecret));
+        $('#txt2Secret').val(secret);
+    } catch (e) {
+        alert('Oh snap!  Error assembling the shares into your secret.  Double check the safe print key maybe?');
     }
-    var hexSecret = secrets.combine(sharesArray);
-    var secret = CryptoJS.enc.Utf8.stringify(CryptoJS.enc.Hex.parse(hexSecret));
-    $('#txt2Secret').val(secret);
+}
+
+function scanQr() {
+    $('#qrScannerWindow').toggle(true);
+    $('#qrScannerWindow').html5_qrcode(function(data){
+            // do something when code is read
+            $('#txt2Shares').append(data + '\n');
+            scanQrStop();
+        },
+        function(error){
+            //show read errors
+        }, function(videoError){
+            alert('Error opening stream');
+            scanQrStop();
+        }
+    );
+}
+
+function scanQrStop() {
+    $('#qrScannerWindow').html5_qrcode_stop();
+    $('#qrScannerWindow').html('');
+    $('#qrScannerWindow').toggle(false);
 }
