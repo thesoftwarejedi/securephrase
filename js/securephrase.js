@@ -22,9 +22,11 @@ function generateShares() {
     var divShares = $('#div1Shares');
     divShares.html('');
 
-    //put in base64 with safeprint encryption or not
+    //get safe key
     var safePrintKey = '';
-    if ($('#chkbxSafePrint').prop('checked')) {
+    var isSafeKey = $('#chkbxSafePrint').prop('checked');
+    $('#safe-key-wrap').toggle(isSafeKey);
+    if (isSafeKey) {
         safePrintKey = r.string(10, safePrintChars); //base32 chars are good for writing keys down
         $('#safePrintKey').text(safePrintKey);
     }
@@ -59,7 +61,6 @@ function recoverShares() {
     for (var i = 0; i < sharesArray.length; i++) {
         if (safePrintKey != '') {
             //there was a safeprint key so decrypt the share
-            $('.safe-key-wrap').toggle(true);
             sharesArray[i] = CryptoJS.AES.decrypt(sharesArray[i], safePrintKey);
         } else {
             $('.safe-key-wrap').toggle(false);

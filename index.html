@@ -84,21 +84,35 @@
                             <input type="button" value="Generate" class="btn" id="btn1Generate" onclick="generateShares();" />
                             </div>
                         </div>
-                        <div class="safe-key-wrap row">
+                        <div id="safe-key-wrap" style="display:none" class="row">
                             <div class="col-md-12">
                             <p>Your safe key is <span id="safePrintKey"></span></p>
                             </div>
                         </div>
+                        <ul id="div1Shares" class="shares-list printable"></ul>
+                        <script id="tmplShare" type="text/x-jsrender">
+                        <li>
+                            <div>Page {{:index}}</div>
+                            Share Data: <span class="share-text">{{:text}}</span>
+                            <div class="share-qr-code" id="shareQR{{:index}}" />
+                        </li>
+                        </script>
                     </form>
                 </div>
                 <div class="col-md-12">
                     <div class="tab-pane" id="recover">
                         <form>
-                        <h1>recover</h1>
-                            <div class="row">        
+                            <h1>recover</h1>
+                            <div class="row">
                                 <div class="form-group col-md-12">
                                     <label>shares:</label>
                                     <textarea id="txt2Shares"></textarea>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-12">
+                                    <label>safe print key:</label>
+                                    <input id="txt2SafePrint"></input>
                                 </div>
                             </div>
                             <div class="row">
@@ -112,20 +126,10 @@
                                     <textarea id="txt2Secret"></textarea>
                                 </div>
                             </div>
-                        <ul id="div1Shares" class="shares-list"></ul>
-                        
-                        <script id="tmplShare" type="text/x-jsrender">
-                        <li>
-                            <div>Page {{:index}}</div>
-                            Share Data: <span class="share-text">{{:text}}</span>
-                            <div class="share-qr-code" id="shareQR{{:index}}" />
-                        </li>
                         </form>
                     </div>
                 </div>
             </div>
-        <br />
-        safe print key: <input id="txt2SafePrint"></input>
         </div>
     </div>
 </body>
