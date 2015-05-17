@@ -5,48 +5,69 @@
     <script src="js/scripts-bower.js"></script>
     <script src="js/scripts-ext.js"></script>
     <script src="js/securephrase.js"></script>
+    <link rel="stylesheet" href="css/styles-bower.css">  
     <link rel="stylesheet" href="css/screen.css" media="screen" />
     <link rel="stylesheet" href="css/print.css" media="print" />
     <title></title>
 </head>
 <body>
+    <div class="container-fluid ">
+        <div class="row">
+            <div class="col-md-12 print-hide">
+            <h1>split</h1>
+            <form class="form-inline">
+                <div class="print-hide">
+                    <div class="form-group">
+                    <label for="txt1Secret">secret:</label>
+                    <textarea id="txt1Secret" placeholder="Enter your secret here, e.g. (...)"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                    <label for="txt1NumShares">Number of shares:</label>
+                    <input type="text" id="txt1NumShares" value="3" />
+                    </div>
+                    
+                    <div class="form-group">
+                    <label for="txt1NumRequired">Number of shares required:</label>
+                    <input type="text" id="txt1NumRequired" value="2" />
+                    </div>
+    
+                    <div class="checkbox">
+                    <label>safe print</label>
+                    <input type="checkbox" id="chkbxSafePrint" />
+                    </div>
+    
+                    <input type="button" value="Generate" id="btn1Generate" onclick="generateShares();" />
 
-<div class="print-hide">
-    <h1>split</h1>
-    secret: <textarea id="txt1Secret"></textarea>
-    <br />
-    # shares: <input type="text" id="txt1NumShares" value="3" />
-    <br />
-    # shares required: <input type="text" id="txt1NumRequired" value="2" />
-    <br />
-    safe print <input type="checkbox" id="chkbxSafePrint" />
-    <br />
-    <input type="button" value="Generate" id="btn1Generate" onclick="generateShares();" />
-    <h2>shares</h2>
-</div>
-
-<ul id="div1Shares" class="shares-list"></ul>
-
-<script id="tmplShare" type="text/x-jsrender">
-<li>
-    <div>Page {{:index}}</div>
-    Share Data: <span class="share-text">{{:text}}</span>
-    <div class="share-qr-code" id="shareQR{{:index}}" />
-    {{if safePrintKey}}
-        <span class="print-hide">
-            <strong>Page {{:index}} Safe Print Key: </strong><span class="share-safe-print-key">{{:safePrintKey}}</span>
-        </span>
-    {{/if}}
-</li>
-</script>
-
-<div class="print-hide">
-    <h1>recover</h1>
-    shares: <textarea id="txt2Shares"></textarea>
-    <br />
-    <input type="button" value="Recover" id="btn2Recover" onclick="recoverShares();" />
-    <br />
-    secret: <textarea id="txt2Secret"></textarea>
-</div>
+                    <h1>recover</h1>        
+                    <div class="form-group">
+                        <label>shares:</label>
+                        <textarea id="txt2Shares"></textarea>
+                    </div>
+    
+                    <input type="button" value="Recover" id="btn2Recover" onclick="recoverShares();" />
+                    
+                    <div class="form-group">
+                        <label>secret:</label>
+                        <textarea id="txt2Secret"></textarea>
+                    </div>
+                </div>
+                <ul id="div1Shares" class="shares-list"></ul>
+                
+                <script id="tmplShare" type="text/x-jsrender">
+                <li>
+                    <div>Page {{:index}}</div>
+                    Share Data: <span class="share-text">{{:text}}</span>
+                    <div class="share-qr-code" id="shareQR{{:index}}" />
+                    {{if safePrintKey}}
+                        <span class="print-hide">
+                            <strong>Page {{:index}} Safe Print Key: </strong><span class="share-safe-print-key">{{:safePrintKey}}</span>
+                        </span>
+                    {{/if}}
+                </li>
+                </script>
+            </form>
+        </div>
+    </div>
 </body>
 </html>
