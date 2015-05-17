@@ -39,6 +39,7 @@
     
                     <input type="button" value="Generate" id="btn1Generate" onclick="generateShares();" />
 
+    <p>Your safe key is <span id="safePrintKey"</p>
                     <h1>recover</h1>        
                     <div class="form-group">
                         <label>shares:</label>
@@ -59,15 +60,12 @@
                     <div>Page {{:index}}</div>
                     Share Data: <span class="share-text">{{:text}}</span>
                     <div class="share-qr-code" id="shareQR{{:index}}" />
-                    {{if safePrintKey}}
-                        <span class="print-hide">
-                            <strong>Page {{:index}} Safe Print Key: </strong><span class="share-safe-print-key">{{:safePrintKey}}</span>
-                        </span>
-                    {{/if}}
                 </li>
                 </script>
             </form>
         </div>
+    <br />
+    safe print key: <input id="txt2SafePrint"></input>
     </div>
 </body>
 </html>
