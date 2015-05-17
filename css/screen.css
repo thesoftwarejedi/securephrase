@@ -1,0 +1,15 @@
+.home-wrap {padding: 0 0 65px}
+.container-fluid {max-width: 1024px;}
+.row + .row {margin-top: 35px;}
+.form-group + .form-group {margin: 35px 0 0;}
+.form-group {display: block; float; left;}
+.form-group label {display: block;}
+.form-group input {background: #f1f1f1; border: none; padding: 10px 15px;}
+.form-group textarea {background: #f1f1f1; border: none; padding: 10px 15px; width: 100%; min-height: 150px;}
+.form-group select {width: 100%;}
+.form-group .checkbox label {display: inline-block; font-weight: bold;}
+.form-group .checkbox input[type="checkbox"] {margin: 0 0 0 5px;}
+input.btn {background: #2165ff; color: #fff;}
+
+.safe-key-wrap {display: none;}
+.tab-wrap {}

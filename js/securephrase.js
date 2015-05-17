@@ -59,8 +59,10 @@ function recoverShares() {
     for (var i = 0; i < sharesArray.length; i++) {
         if (safePrintKey != '') {
             //there was a safeprint key so decrypt the share
+            $('.safe-key-wrap').toggle(true);
             sharesArray[i] = CryptoJS.AES.decrypt(sharesArray[i], safePrintKey);
         } else {
+            $('.safe-key-wrap').toggle(false);
             sharesArray[i] = CryptoJS.enc.Hex.stringify(CryptoJS.enc.Base64.parse(sharesArray[i]));
         }
         //pop the stupid 8 back on

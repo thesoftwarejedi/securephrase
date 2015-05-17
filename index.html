@@ -11,61 +11,122 @@
     <title></title>
 </head>
 <body>
-    <div class="container-fluid ">
-        <div class="row">
-            <div class="col-md-12 print-hide">
-            <h1>split</h1>
-            <form class="form-inline">
-                <div class="print-hide">
-                    <div class="form-group">
-                    <label for="txt1Secret">secret:</label>
-                    <textarea id="txt1Secret" placeholder="Enter your secret here, e.g. (...)"></textarea>
-                    </div>
-                    
-                    <div class="form-group">
-                    <label for="txt1NumShares">Number of shares:</label>
-                    <input type="text" id="txt1NumShares" value="3" />
-                    </div>
-                    
-                    <div class="form-group">
-                    <label for="txt1NumRequired">Number of shares required:</label>
-                    <input type="text" id="txt1NumRequired" value="2" />
-                    </div>
-    
-                    <div class="checkbox">
-                    <label>safe print</label>
-                    <input type="checkbox" id="chkbxSafePrint" />
-                    </div>
-    
-                    <input type="button" value="Generate" id="btn1Generate" onclick="generateShares();" />
-
-    <p>Your safe key is <span id="safePrintKey"</p>
-                    <h1>recover</h1>        
-                    <div class="form-group">
-                        <label>shares:</label>
-                        <textarea id="txt2Shares"></textarea>
-                    </div>
-    
-                    <input type="button" value="Recover" id="btn2Recover" onclick="recoverShares();" />
-                    
-                    <div class="form-group">
-                        <label>secret:</label>
-                        <textarea id="txt2Secret"></textarea>
+    <div class="home-wrap">
+        <div class="container-fluid">
+            <nav>
+                <ul>
+                    <li data-toggle="tab"><a href="#split">Split</a></li>
+                    <li data-toggle="tab"><a href="#recover">Recover</a></li>
+                </ul>
+            </nav>
+            <div class="tab-wrap">
+                <div class="tab-pane active row" id="split">
+                    <div class="col-md-12 print-hide">
+                    <h1>split</h1>
+                    <form>
+                        <div class="print-hide row">
+                            <div class="form-group col-md-6">
+                            <label for="txt1Secret">Secret:</label>
+                            <textarea id="txt1Secret" placeholder="Enter your secret here, e.g. (...)"></textarea>
+                            </div>
+                            
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                <label for="txt1NumShares">Number of shares:</label>
+                                <select id="txt1NumShares">
+                                    <option>2</option>
+                                    <option>3</option>
+                                    <option>4</option>
+                                    <option>5</option>
+                                    <option>6</option>
+                                    <option>7</option>
+                                    <option>8</option>
+                                    <option>9</option>
+                                    <option>10</option>
+                                    <option>11</option>
+                                    <option>12</option>
+                                    <option>13</option>
+                                    <option>14</option>
+                                    <option>15</option>
+                                </select>
+                                </div>
+                                
+                                <div class="form-group">
+                                <label for="txt1NumRequired">Number of shares required:</label>
+                                <select id="txt1NumRequired">
+                                    <option>2</option>
+                                    <option>3</option>
+                                    <option>4</option>
+                                    <option>5</option>
+                                    <option>6</option>
+                                    <option>7</option>
+                                    <option>8</option>
+                                    <option>9</option>
+                                    <option>10</option>
+                                    <option>11</option>
+                                    <option>12</option>
+                                    <option>13</option>
+                                    <option>14</option>
+                                    <option>15</option>
+                                </select>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group form-inline col-md-3">
+                                <div class="checkbox">
+                                <label>Safe print:</label>
+                                <input type="checkbox" id="chkbxSafePrint" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                            <input type="button" value="Generate" class="btn" id="btn1Generate" onclick="generateShares();" />
+                            </div>
+                        </div>
+                        <div class="safe-key-wrap row">
+                            <div class="col-md-12">
+                            <p>Your safe key is <span id="safePrintKey"></span></p>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-12">
+                    <div class="tab-pane" id="recover">
+                        <form>
+                        <h1>recover</h1>
+                            <div class="row">        
+                                <div class="form-group col-md-12">
+                                    <label>shares:</label>
+                                    <textarea id="txt2Shares"></textarea>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                <input type="button" value="Recover" class="btn" id="btn2Recover" onclick="recoverShares();" />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-12">
+                                    <label>secret:</label>
+                                    <textarea id="txt2Secret"></textarea>
+                                </div>
+                            </div>
+                        <ul id="div1Shares" class="shares-list"></ul>
+                        
+                        <script id="tmplShare" type="text/x-jsrender">
+                        <li>
+                            <div>Page {{:index}}</div>
+                            Share Data: <span class="share-text">{{:text}}</span>
+                            <div class="share-qr-code" id="shareQR{{:index}}" />
+                        </li>
+                        </form>
                     </div>
                 </div>
-                <ul id="div1Shares" class="shares-list"></ul>
-                
-                <script id="tmplShare" type="text/x-jsrender">
-                <li>
-                    <div>Page {{:index}}</div>
-                    Share Data: <span class="share-text">{{:text}}</span>
-                    <div class="share-qr-code" id="shareQR{{:index}}" />
-                </li>
-                </script>
-            </form>
+            </div>
+        <br />
+        safe print key: <input id="txt2SafePrint"></input>
         </div>
-    <br />
-    safe print key: <input id="txt2SafePrint"></input>
     </div>
 </body>
 </html>
