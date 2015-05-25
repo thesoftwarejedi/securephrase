@@ -1,0 +1,8 @@
+/* this needs a lot of work */
+
+.print-hide {
+    display: none;
+}
+.shares-list > li {
+    page-break-after: always;
+}

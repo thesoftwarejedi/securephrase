@@ -1,0 +1,20 @@
+.home-wrap {padding: 0 0 65px}
+.container-fluid {max-width: 1024px;}
+.row + .row {margin-top: 35px;}
+.form-group + .form-group {margin: 35px 0 0;}
+.form-group {display: block; float; left;}
+.form-group label {display: block;}
+.form-group input {background: #f1f1f1; border: none; padding: 10px 15px;}
+.form-group textarea {background: #f1f1f1; border: none; padding: 10px 15px; width: 100%; min-height: 150px;}
+.form-group select {width: 100%;}
+.form-group .checkbox label {display: inline-block; font-weight: bold;}
+.form-group .checkbox input[type="checkbox"] {margin: 0 0 0 5px;}
+input.btn {background: #2165ff; color: #fff;}
+.tab-wrap {}
+#scanQrButton {
+    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAIAAACQkWg2AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAadEVYdFNvZnR3YXJlAFBhaW50Lk5FVCB2My41LjExR/NCNwAAAZdJREFUOE89kVmKAmEMhHMJcUBfVFAR3PcFbdt93xE8jHhpxb3nc4oxD0UlqUryd9vpdNrtdvv9frPZbLfb+XzueR78cDi8Xq/lcimu1vF4tPV6/Xw+6aEjSN/v93g8hlMkhZzP57+mx1xjwPV6haGjxBgIO5nNoNVq9Xg8SBeLBelkMrHBYIAOEUFJJxH0wOl0qhQbiNiwwlCD3CAFqeqycYKQtTYcDmezWb/fh9DGgE1vIFjY6/UwM5vWaDSy73NF7vc7SAMFlW+X0FXWarWYAXNdF53jOHpVt9sFO52OWpzAC1liJGq0221xRkinWSAcNQLQ9FwYeLlcQKJcLstMl52lUomF8EajYZVKpVarNZvNer0OJpNJeSh+sVgsiiD+GGA86Ha7ScG2dDoNZzD1bDYLJ3K5HGiJRIJPUSgUVGUYq6vVajwex8ZtpBDZ8BgKDDB9wUwmg4LDqOTz+VQqJR0GNn8MoVCIEmq9OxqNgkQsFsMJCYfDkUgEVN34u36//+c/4FQhjAgGgz6fDxIIBKhQd133F0QNzDPqO/1fAAAAAElFTkSuQmCC);
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    display: block;
+}

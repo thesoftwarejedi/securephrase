@@ -34,7 +34,7 @@ module.exports = function(grunt) {
             }
         },
         clean: {
-            deployment: [ 'deploy/**/*.*' ]
+            dist: [ 'deploy/**/*.*' ]
         },
         copy: {
             fonts: {
@@ -47,12 +47,12 @@ module.exports = function(grunt) {
                     }
                 ]
             },
-            deployment: {
+            dist: {
                 files : [
-                    { cwd: '', expand: true, src: '*.html', dest: 'deploy/' },
-                    { cwd: 'css', expand: true, src: 'css/*.css', dest: 'deploy/css' },
-                    { cwd: 'fonts', expand: true, src: 'fonts/*.*', dest: 'deploy/fonts' },
-                    { cwd: 'js', expand: true, src: 'js/*.min.js', dest: 'deploy/js' }
+                    { cwd: '', expand: true, src: '*.html', dest: 'dist/' },
+                    { cwd: 'css', expand: true, src: '*.css', dest: 'dist/css' },
+                    { cwd: 'fonts', expand: true, src: '*.*', dest: 'dist/fonts' },
+                    { cwd: 'js', expand: true, src: '*.min.js', dest: 'dist/js' }
                 ]
             }
         }
@@ -61,6 +61,6 @@ module.exports = function(grunt) {
     require('load-grunt-tasks')(grunt);
 
     grunt.registerTask('default', ['concat', 'bower_concat', 'uglify', 'copy:fonts', 'clean', 'copy:deployment']);
-    grunt.registerTask('deploy', ['clean:deployment', 'copy:deployment']);
+    grunt.registerTask('dist', ['clean:dist', 'copy:dist']);
 
 };
