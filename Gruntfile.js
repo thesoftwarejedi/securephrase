@@ -28,9 +28,13 @@ module.exports = function(grunt) {
                 },
                 files: {
                     'js/scripts-bower.min.js': 'js/scripts-bower.js',
-                    'js/scripts-ext.min.js': 'js/scripts-ext.js'
+                    'js/scripts-ext.min.js': 'js/scripts-ext.js',
+                    'js/securephrase.min.js': 'js/securephrase.js'
                 }
             }
+        },
+        clean: {
+            deployment: [ 'deploy/**/*.*' ]
         },
         copy: {
             fonts: {
@@ -42,12 +46,21 @@ module.exports = function(grunt) {
                         expand: true           // required when using cwd
                     }
                 ]
+            },
+            deployment: {
+                files : [
+                    { cwd: '', expand: true, src: '*.html', dest: 'deploy/' },
+                    { cwd: 'css', expand: true, src: 'css/*.css', dest: 'deploy/css' },
+                    { cwd: 'fonts', expand: true, src: 'fonts/*.*', dest: 'deploy/fonts' },
+                    { cwd: 'js', expand: true, src: 'js/*.min.js', dest: 'deploy/js' }
+                ]
             }
         }
     });
 
     require('load-grunt-tasks')(grunt);
 
-    grunt.registerTask('default', ['concat', 'bower_concat', 'copy', 'uglify']);
+    grunt.registerTask('default', ['concat', 'bower_concat', 'uglify', 'copy:fonts', 'clean', 'copy:deployment']);
+    grunt.registerTask('deploy', ['clean:deployment', 'copy:deployment']);
 
 };
