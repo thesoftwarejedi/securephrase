@@ -6,21 +6,21 @@ Each share contains no hints at the contents of the secret, even when combined w
 
 ## Usage
 
-### Opening
+#### Opening
 Dowload the contents of the "dist" folder into a local directory, and open "index.html" in a browser.  This page can, and is suggested to be, run on an offline computer for maximum security.
 
-### Splitting a secret
+#### Splitting a secret
 You can enter something important, such as a bitcoin private key, mnemonic, or password and instructions for using it into the "secret" box on the "Split" tab.  Choose the number of shares you'd like it to be split into, and the number of shares required to reconstruct it.  After pressing "Generate", you'll be presented with a number of text strings and corresponding QR codes.  The QR codes contain the same data as the text strings.
 
 When printing, the shares will be conveniently separated onto multiple pages to accomodate being stored separately, and only the QR codes are printed.  It is not expected to print the large text strings.  Instead of printing, the shares' text can be copied, pasted, and sent out by other methods.
 
-### Recovering a secret
+#### Recovering a secret
 On the "Recover" tab, you can enter the shares which you have in the "Shares" text box, each on a separate line.  Alternatively, there is a QR reader which works in modern browsers to scan the QR code.  If the browser scanner does not work, a smart phone scanner will work, then the text can be copied and sent to the website by whatever means possible.  Upon pressing the "Recover" button, the secret will be reconstructed if enough shares are presented.
 
-### Advanced
+#### Advanced
 If printing on an untrusted printed (or any printer if you're insanely risk adverse - printers do save things they print...), you can use the "Safe Print" option to encrypt each share with a random passphrase which *is not printed*.  This passphrase should be handwritten on the share printouts after printing, and provided in the appropriate textbox during recovery.
 
-### Example Use
+#### Example Use
 
 Split into 2 of 3 shares: Keep the shares hidden in discrete, physically separated locations.  This protects your backup from physical loss of one of the locations.
 
@@ -34,6 +34,7 @@ This was created as a secure way to store my TREZOR device BIP39 mnemonic phrase
 
     bower install
     grunt
+    open dist/index.html
 
 ## Tests
 
