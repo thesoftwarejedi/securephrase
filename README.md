@@ -7,7 +7,7 @@ Each share contains no hints at the contents of the secret, even when combined w
 ## Usage
 
 #### Opening
-Dowload the contents of the "dist" folder into a local directory, and open "index.html" in a browser.  This page can, and is suggested to be, run on an offline computer for maximum security.
+Dowload the contents of the "dist" folder into a local directory, and open "index.html" in a browser.  This page can, and is suggested to be, run on an offline computer for maximum security.  At the very least, run your browser in an incognito window, or launch it without extensions running.
 
 #### Splitting a secret
 You can enter something important, such as a bitcoin private key, mnemonic, or password and instructions for using it into the "secret" box on the "Split" tab.  Choose the number of shares you'd like it to be split into, and the number of shares required to reconstruct it.  After pressing "Generate", you'll be presented with a number of text strings and corresponding QR codes.  The QR codes contain the same data as the text strings.
