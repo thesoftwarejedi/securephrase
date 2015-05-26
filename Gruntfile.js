@@ -60,7 +60,7 @@ module.exports = function(grunt) {
 
     require('load-grunt-tasks')(grunt);
 
-    grunt.registerTask('default', ['concat', 'bower_concat', 'uglify', 'copy:fonts', 'clean', 'copy:deployment']);
+    grunt.registerTask('default', ['concat', 'bower_concat', 'uglify', 'copy:fonts', 'clean', 'copy:dist']);
     grunt.registerTask('dist', ['clean:dist', 'copy:dist']);
 
 };
