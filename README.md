@@ -6,6 +6,9 @@ Each share contains no hints at the contents of the secret, even when combined w
 
 ## Usage
 
+#### Online version
+An online version of this site has been deployed here: http://thesoftwarejedi.github.io/securephrase/.  It is suggested that the page is downloaded for offline use if being used for high security purposes.
+
 #### Opening
 Dowload the contents of the "dist" folder into a local directory, and open "index.html" in a browser.  This page can, and is suggested to be, run on an offline computer for maximum security.  At the very least, run your browser in an incognito window, or launch it without extensions running.
 
