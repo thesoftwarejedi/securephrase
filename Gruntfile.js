@@ -11,7 +11,10 @@ module.exports = function(grunt) {
                 cssDest: 'css/styles-bower.css',
                 mainFiles: {
                     'cryptojslib': ['rollups/aes.js']
-                }
+                },
+                exclude: [
+                    'grunt'
+                ]
             }
         },
         concat: {

@@ -1,112 +1,126 @@
 <!DOCTYPE html>
 <html>
+
 <head lang="en">
     <meta charset="UTF-8">
     <script src="js/scripts-bower.min.js"></script>
     <script src="js/scripts-ext.min.js"></script>
     <script src="js/securephrase.min.js"></script>
-    <link rel="stylesheet" href="css/styles-bower.css">  
+    <link rel="stylesheet" href="css/styles-bower.css">
     <link rel="stylesheet" href="css/screen.css" media="screen" />
     <link rel="stylesheet" href="css/print.css" media="print" />
     <title></title>
 </head>
+
 <body>
     <div class="home-wrap">
         <div class="container-fluid">
             <nav class="print-hide">
-                <ul>
-                    <li data-toggle="tab"><a href="#split">Split</a></li>
-                    <li data-toggle="tab"><a href="#recover">Recover</a></li>
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active">
+                        <a href="#split" aria-controls="home" role="tab" data-toggle="tab">
+                            Split
+                        </a>
+                    </li>
+                    <li role="presentation">
+                        <a href="#recover" aria-controls="profile" role="tab" data-toggle="tab">
+                            Recover
+                        </a>
+                    </li>
                 </ul>
             </nav>
-            <div class="tab-wrap">
-                <div class="tab-pane active row" id="split">
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane fade in active" id="split">
                     <div class="col-md-12">
                         <h1 class="print-hide">split</h1>
                         <form>
                             <div class="row print-hide">
                                 <div class="form-group col-md-6">
-                                <label for="txt1Secret">Secret:</label>
-                                <textarea id="txt1Secret" placeholder="Enter your secret here, e.g. (...)"></textarea>
+                                    <label for="txt1Secret">Secret:</label>
+                                    <textarea id="txt1Secret" placeholder="Enter your secret here, e.g. (...)"></textarea>
                                 </div>
 
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                    <label for="txt1NumShares">Number of shares:</label>
-                                    <select id="txt1NumShares">
-                                        <option>2</option>
-                                        <option selected>3</option>
-                                        <option>4</option>
-                                        <option>5</option>
-                                        <option>6</option>
-                                        <option>7</option>
-                                        <option>8</option>
-                                        <option>9</option>
-                                        <option>10</option>
-                                        <option>11</option>
-                                        <option>12</option>
-                                        <option>13</option>
-                                        <option>14</option>
-                                        <option>15</option>
-                                    </select>
+                                        <label for="txt1NumShares">Number of shares:</label>
+                                        <select id="txt1NumShares">
+                                            <option>2</option>
+                                            <option selected>3</option>
+                                            <option>4</option>
+                                            <option>5</option>
+                                            <option>6</option>
+                                            <option>7</option>
+                                            <option>8</option>
+                                            <option>9</option>
+                                            <option>10</option>
+                                            <option>11</option>
+                                            <option>12</option>
+                                            <option>13</option>
+                                            <option>14</option>
+                                            <option>15</option>
+                                        </select>
                                     </div>
 
+                                    <br />
+
                                     <div class="form-group">
-                                    <label for="txt1NumRequired">Number of shares required:</label>
-                                    <select id="txt1NumRequired">
-                                        <option selected>2</option>
-                                        <option>3</option>
-                                        <option>4</option>
-                                        <option>5</option>
-                                        <option>6</option>
-                                        <option>7</option>
-                                        <option>8</option>
-                                        <option>9</option>
-                                        <option>10</option>
-                                        <option>11</option>
-                                        <option>12</option>
-                                        <option>13</option>
-                                        <option>14</option>
-                                        <option>15</option>
-                                    </select>
+                                        <label for="txt1NumRequired">Number of shares required:</label>
+                                        <select id="txt1NumRequired">
+                                            <option selected>2</option>
+                                            <option>3</option>
+                                            <option>4</option>
+                                            <option>5</option>
+                                            <option>6</option>
+                                            <option>7</option>
+                                            <option>8</option>
+                                            <option>9</option>
+                                            <option>10</option>
+                                            <option>11</option>
+                                            <option>12</option>
+                                            <option>13</option>
+                                            <option>14</option>
+                                            <option>15</option>
+                                        </select>
                                     </div>
                                 </div>
 
                                 <div class="form-group form-inline col-md-3">
                                     <div class="checkbox">
-                                    <label>Safe print:</label>
-                                    <input type="checkbox" id="chkbxSafePrint" />
+                                        <label>Safe print:</label>
+                                        <input type="checkbox" id="chkbxSafePrint" />
                                     </div>
                                 </div>
                             </div>
                             <div class="row print-hide">
                                 <div class="form-group col-md-6">
-                                <input type="button" value="Generate" class="btn" id="btn1Generate" onclick="generateShares();" />
+                                    <input type="button" value="Generate" class="btn" id="btn1Generate" onclick="generateShares();" />
                                 </div>
                             </div>
-                            <div id="safe-key-wrap print-hide" class="row">
+                            <div class="row safe-key-wrap print-hide">
                                 <div class="col-md-12">
-                                <p>Your safe key is <span id="safePrintKey"></span></p>
+                                    <p>Your safe key is <span id="safePrintKey" class="safe-print-key strong"></span></p>
+                                    <p>You <span class="strong">MUST</span> write this on each share key <span class="strong">MANUALLY</span>.</p>
+                                    <p><span class="strong">IT IS CASE SENSITIVE</span></p>
                                 </div>
                             </div>
                             <ul id="div1Shares" class="shares-list"></ul>
                             <script id="tmplShare" type="text/x-jsrender">
-                            <li>
-                                <div class="print-hide">Page {{:index}}</div>
-                                Share Data: <span class="share-text print-hide">{{:text}}</span>
-                                <div class="share-qr-code" id="shareQR{{:index}}" />
-                            </li>
+                                <li class="share-page-list-item">
+                                    <div class="print-hide">Page {{:index}}</div>
+                                        <span class="share-text print-hide">Share Data: {{:text}}</span>
+                                    <div class="share-qr-code" id="shareQR{{:index}}" />
+                                </li>
                             </script>
                         </form>
                     </div>
                 </div>
-                <div class="col-md-12 print-hide">
-                    <div class="tab-pane" id="recover">
+                <div role="tabpanel" class="tab-pane fade" id="recover">
+                    <div class="col-md-12 print-hide">
                         <form>
                             <h1>recover</h1>
                             <div class="row">
                                 <div class="form-group col-md-12">
-                                    <label>shares: <span id="scanQrButton" onclick="scanQr();"/></label>
+                                    <label>shares: <span id="scanQrButton" onclick="scanQr();" /></label>
                                     <div id="qrScannerWindow" style="width:300px;height:300px;display:none"></div>
                                     <textarea id="txt2Shares"></textarea>
                                 </div>
@@ -114,12 +128,12 @@
                             <div class="row">
                                 <div class="form-group col-md-12">
                                     <label>safe print key:</label>
-                                    <input id="txt2SafePrint"/>
+                                    <input id="txt2SafePrint" />
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
-                                <input type="button" value="Recover" class="btn" id="btn2Recover" onclick="recoverShares();" />
+                                    <input type="button" value="Recover" class="btn" id="btn2Recover" onclick="recoverShares();" />
                                 </div>
                             </div>
                             <div class="row">
@@ -135,4 +149,5 @@
         </div>
     </div>
 </body>
+
 </html>

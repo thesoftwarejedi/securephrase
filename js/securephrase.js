@@ -30,10 +30,13 @@ function generateShares() {
     //get safe key
     var safePrintKey = '';
     var isSafeKey = $('#chkbxSafePrint').prop('checked');
-    $('#safe-key-wrap').toggle(isSafeKey);
+
     if (isSafeKey) {
-        safePrintKey = r.string(15, safePrintChars); //chars which are good for writing keys down
+        $('.safe-key-wrap').show();
+        safePrintKey = r.string(10, safePrintChars); //chars which are good for writing keys down
         $('#safePrintKey').text(safePrintKey);
+    } else {
+        $('.safe-key-wrap').hide();
     }
 
     for (var i = 0; i < shares.length; i++) {
@@ -50,11 +53,19 @@ function generateShares() {
         }
 
         //we just build the qr code placeholder here, the next loop will actually generate the qr code
-        divShares.append($('#tmplShare').render({text:shares[i], index:i+1}));
+        divShares.append($('#tmplShare').render({
+            text: shares[i],
+            index: i + 1
+        }));
     }
     //generate the qr codes for the shares
     for (var i = 0; i < shares.length; i++) {
-        new QRCode(document.getElementById('shareQR' + (i+1)), { text: shares[i], correctLevel: QRCode.CorrectLevel.L, width: 256, height: 256 });
+        new QRCode(document.getElementById('shareQR' + (i + 1)), {
+            text: shares[i],
+            correctLevel: QRCode.CorrectLevel.L,
+            width: 256,
+            height: 256
+        });
     }
 }
 
@@ -88,14 +99,15 @@ function recoverShares() {
 
 function scanQr() {
     $('#qrScannerWindow').toggle(true);
-    $('#qrScannerWindow').html5_qrcode(function(data){
+    $('#qrScannerWindow').html5_qrcode(function (data) {
             // do something when code is read
             $('#txt2Shares').append(data + '\n');
             scanQrStop();
         },
-        function(error){
+        function (error) {
             //show read errors
-        }, function(videoError){
+        },
+        function (videoError) {
             alert('Error opening stream');
             scanQrStop();
         }
