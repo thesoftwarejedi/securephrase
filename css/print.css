@@ -12,4 +12,8 @@
     .share-qr-code {
         margin: 50px;
     }
+
+    ul {
+        list-style-type: none;
+    }
 }
